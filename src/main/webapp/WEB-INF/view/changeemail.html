@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>CHANGE YOUR EMAIL</title>
+</head>
+<body>
+<form name="@{/profile/changeemail}" th:object="${emailForm}" th:action="@{/profile/changeemail}" method="post">
+    <tr>
+        <td><label>New email:</label></td>
+        <td><input type="email" id="inputEmail" th:field="*{email}" placeholder="New email"/></td>
+        <p th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Email error</p>
+    </tr>
+    <tr>
+        <td><label>New email confirm:</label></td>
+        <td><input type="email" id="inputEmailConfirm" th:field="*{emailConfirm}" placeholder="New email"/></td>
+        <p th:if="${#fields.hasErrors('emailConfirm')}" th:errors="*{emailConfirm}">Email error</p>
+    </tr>
+    <tr>
+        <td><button type="submit">Apply</button></td>
+    </tr>
+</form>
+<a href="/profile">BACK</a>
+</body>
+</html>

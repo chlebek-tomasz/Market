@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+</head>
+<body>
+<table>
+    <tbody>
+    <form name="@{/advert/add}" th:object="${product}" th:action="@{/advert/add}" method="post">
+        <tr>
+            <td><label>Product name:</label></td>
+            <td><input type="text" id="inputName" th:field="*{name}" placeholder="Name"/></td>
+            <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name error</p>
+        </tr>
+        <tr>
+            <td><label>Description:</label></td>
+            <td><input type="text" id="description" th:field="*{description}" placeholder="Description" required max="9000"/></td>
+            <p th:if="${#fields.hasErrors('description')}" th:errors="*{description}">Description error</p>
+        </tr>
+        <tr>
+            <td><label>Category</label></td>
+            <td>
+            <select id="inlineFormCustomSelectPref" th:field="*{category}">
+                <option value="" selected>Choose...</option>
+                <option th:each="category : ${categories}" th:text="${category.name}" th:value="${category.name}"/>
+            </select>
+                <p th:if="${#fields.hasErrors('category')}" th:errors="*{category}">Category error</p>
+            </td>
+        </tr>
+        <tr>
+            <td><label>Price:</label></td>
+            <td><input type="number" id="inputPrice" th:field="*{price}" placeholder="Price"/></td>
+            <p th:if="${#fields.hasErrors('price')}" th:errors="*{price}">Price error</p>
+        </tr>
+        <tr>
+            <td><button type="submit">Add item</button></td>
+        </tr>
+    </form>
+    </tbody>
+</table>
+</body>
+</html>

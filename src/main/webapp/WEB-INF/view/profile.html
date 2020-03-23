@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <table>
+        <tbody>
+        <tr>
+            <td><h3 th:text="${user.getFirstName()}"/></td>
+            <td><h3 th:text="${user.getLastName()}"/></td>
+        </tr>
+        <tr>
+            <td><p th:text="${user.getEmail()}"/></td>
+        </tr>
+        <tr>
+            <td><p th:text="${user.getPhoneNumber()}"/></td>
+        </tr>
+        </tbody>
+    </table>
+    <a href="/dashboard">HOMEPAGE</a>
+    <br/><br/>
+    <h2>SETTINGS</h2><br/>
+    <a href="/profile/changepassword">CHANGE PASSWORD</a><br/>
+    <a href="/profile/changeemail">CHANGE EMAIL</a><br/>
+    <a href="/profile/changeinfo">CHANGE YOUR INFO</a><br/><br/>
+    <a href="/logout">LOGOUT</a>
+</body>
+</html>

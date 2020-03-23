@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" >
+<head>
+    <meta charset="UTF-8">
+    <title>Registration</title>
+</head>
+<body>
+<table>
+    <tbody>
+    <form name="@{/registration}" th:object="${user}" th:action="@{/registration}" method="post">
+        <tr>
+            <td><label>Email:</label></td>
+            <td><input type="email" id="inputEmail" th:field="*{email}" placeholder="Email"/></td>
+            <p th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Email error</p>
+        </tr>
+        <tr>
+            <td><label>Password:</label></td>
+            <td><input type="password" id="inputPassword" th:field="*{password}" placeholder="Password" required min="8" max="32"/></td>
+            <p th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Password error</p>
+        </tr>
+        <tr>
+            <td><label>Password confirm:</label></td>
+            <td><input type="password" id="inputPasswordMatches" th:field="*{passwordMatches}" placeholder="Password" required min="8" max="32"/></td>
+            <p th:if="${#fields.hasErrors('passwordMatches')}" th:errors="*{passwordMatches}">Password error</p>
+        </tr>
+        <tr>
+            <td><label>First name:</label></td>
+            <td><input type="text" id="inputFirstName" th:field="*{firstName}" placeholder="First name"/></td>
+            <p th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}">First name error</p>
+        </tr>
+        <tr>
+            <td><label>Last name:</label></td>
+            <td><input type="text" id="inputLastName" th:field="*{lastName}" placeholder="Last name"/></td>
+            <p th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}">Last name error</p>
+        </tr>
+        <tr>
+            <td><label>Phone number:</label></td>
+            <td><input type="number" id="inputPhoneNumber" th:field="*{phoneNumber}" placeholder="Phone number"/></td>
+            <p th:if="${#fields.hasErrors('phoneNumber')}" th:errors="*{phoneNumber}">Phone number error</p>
+        </tr>
+        <tr>
+            <td><button type="submit">Register</button></td>
+        </tr>
+    </form>
+    </tbody>
+</table>
+    <p><a th:href="@{/}">Home</a></p>
+    <p><a th:href="@{/login}">Sign in</a></p>
+</body>
+</html>
