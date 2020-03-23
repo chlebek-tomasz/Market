@@ -41,6 +41,16 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    public List<Product> getAllUsersProducts(Long userId) {
+        return productRepository.getAllByUserId(userId);
+    }
+
+    @Override
+    public void delete(Long id) {
+        productRepository.deleteById(id);
+    }
+
+    @Override
     public Product addProduct(ProductDto productDto) {
         Product product = new Product();
         product.setName(productDto.getName());
@@ -58,8 +68,4 @@ public class ProductServiceImpl implements ProductService {
         productRepository.save(product);
     }
 
-    @Override
-    public void delete(Product product) {
-        productRepository.delete(product);
-    }
 }

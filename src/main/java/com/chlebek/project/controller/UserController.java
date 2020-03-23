@@ -1,9 +1,11 @@
 package com.chlebek.project.controller;
 
+import com.chlebek.project.model.product.Product;
 import com.chlebek.project.model.user.User;
 import com.chlebek.project.service.UserService;
 import com.chlebek.project.dto.form.EmailForm;
 import com.chlebek.project.dto.form.PasswordForm;
+import com.chlebek.project.service.product.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @Controller
 public class UserController {
@@ -21,6 +24,8 @@ public class UserController {
     private UserService userService;
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
+    @Autowired
+    private ProductService productService;
 
 
     @GetMapping("/dashboard")
@@ -98,7 +103,13 @@ public class UserController {
             userService.updateUser(toUpdate);
             return toReturn;
         }
+    }
 
+    @GetMapping("/profile/myproducts")
+    public String getMyProductsList(Model model){
+        List<Product> products = productService.getAllUsersProducts(userService.setUser().getId());
+        model.addAttribute("products", products);
+        return "myproducts";
     }
 
 }

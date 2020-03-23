@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>My products</title>
+</head>
+<body>
+<table>
+    <tbody>
+    <tr th:each="product,iterationStatus : ${products}">
+        <td th:text="${iterationStatus.count}"></td>
+        <td th:text="${product.getName()}"></td>
+        <td><a href="/product/edit/${product.id}">EDIT</a></td>
+        <td><a th:href="@{'/product/delete/' + ${product.id}}">DELETE</a></td>
+    </tr>
+    </tbody>
+</table>
+<a href="/dashboard">Home</a>
+</body>
+</html>

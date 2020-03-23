@@ -14,9 +14,11 @@ public interface ProductService {
 
     List<Product> getAllProductsFromCategory(Long categoryId);
 
+    List<Product> getAllUsersProducts(Long userId);
+
     Product addProduct(ProductDto product);
 
     void updateProduct(Product product);
 
-    void delete(Product product);
+    void delete(Long id);
 }
