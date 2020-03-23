@@ -1,15 +1,13 @@
 package com.chlebek.project.service.product;
 
 import com.chlebek.project.model.product.Product;
-import com.chlebek.project.repository.UserRepository;
 import com.chlebek.project.repository.product.CategoryRepository;
 import com.chlebek.project.repository.product.ProductRepository;
 import com.chlebek.project.service.UserService;
-import dto.product.ProductDto;
+import com.chlebek.project.dto.product.ProductDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 

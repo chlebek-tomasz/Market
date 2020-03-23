@@ -1,4 +1,4 @@
-package dto.product;
+package com.chlebek.project.dto.product;
 
 import com.chlebek.project.model.product.Category;
 import com.chlebek.project.model.util.Image;

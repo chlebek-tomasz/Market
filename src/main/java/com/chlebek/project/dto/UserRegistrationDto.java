@@ -1,4 +1,4 @@
-package dto;
+package com.chlebek.project.dto;
 
 import com.chlebek.project.model.user.Address;
 import com.chlebek.project.validation.PasswordMatches;

@@ -2,9 +2,7 @@ package com.chlebek.project.service;
 
 import com.chlebek.project.exception.EmailExistsException;
 import com.chlebek.project.model.user.User;
-import dto.UserRegistrationDto;
-
-import java.util.Optional;
+import com.chlebek.project.dto.UserRegistrationDto;
 
 public interface UserService {
     User getUserByEmail(String Email);

@@ -1,13 +1,9 @@
 package com.chlebek.project.controller;
 
-import com.chlebek.project.model.product.Category;
 import com.chlebek.project.model.product.Product;
-import com.chlebek.project.repository.product.ProductRepository;
-import com.chlebek.project.service.UserService;
 import com.chlebek.project.service.product.CategoryService;
 import com.chlebek.project.service.product.ProductService;
-import dto.UserRegistrationDto;
-import dto.product.ProductDto;
+import com.chlebek.project.dto.product.ProductDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,9 +12,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-
-import javax.validation.Valid;
-import java.util.List;
 
 @Controller
 public class ProductController {

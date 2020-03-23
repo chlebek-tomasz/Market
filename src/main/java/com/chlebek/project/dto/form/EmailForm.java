@@ -1,4 +1,4 @@
-package dto.form;
+package com.chlebek.project.dto.form;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;

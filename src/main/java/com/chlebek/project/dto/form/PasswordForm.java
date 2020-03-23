@@ -1,4 +1,4 @@
-package dto.form;
+package com.chlebek.project.dto.form;
 
 import com.chlebek.project.validation.PasswordMatches;
 

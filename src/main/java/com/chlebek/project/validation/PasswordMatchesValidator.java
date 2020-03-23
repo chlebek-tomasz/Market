@@ -1,6 +1,6 @@
 package com.chlebek.project.validation;
 
-import dto.UserRegistrationDto;
+import com.chlebek.project.dto.UserRegistrationDto;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;

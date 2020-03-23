@@ -1,7 +1,7 @@
 package com.chlebek.project.service.product;
 
 import com.chlebek.project.model.product.Product;
-import dto.product.ProductDto;
+import com.chlebek.project.dto.product.ProductDto;
 
 import java.util.List;
 

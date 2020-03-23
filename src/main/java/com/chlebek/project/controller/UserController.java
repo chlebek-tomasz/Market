@@ -2,12 +2,9 @@ package com.chlebek.project.controller;
 
 import com.chlebek.project.model.user.User;
 import com.chlebek.project.service.UserService;
-import dto.form.EmailForm;
-import dto.form.PasswordForm;
+import com.chlebek.project.dto.form.EmailForm;
+import com.chlebek.project.dto.form.PasswordForm;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
