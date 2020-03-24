@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<table>
+    <tbody>
+    <tr>
+        <td><h3 th:text="${user.getFirstName()}"/></td>
+        <td><h3 th:text="${user.getLastName()}"/></td>
+    </tr>
+    <tr>
+        <td><p th:text="${user.getEmail()}"/></td>
+    </tr>
+    <tr>
+        <td><p th:text="${user.getPhoneNumber()}"/></td>
+    </tr>
+    </tbody>
+</table>
+<h3>Users products</h3>
+<table>
+    <tbody>
+    <tr th:each="product,iterationStatus : ${userProducts}">
+        <td th:text="${iterationStatus.count}"></td>
+        <td><a th:href="@{'/advert/' + ${product.getId()}}" ><p th:text="${product.getName()}"></p></a></td>
+        <td th:text="${product.getPrice()}"></td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

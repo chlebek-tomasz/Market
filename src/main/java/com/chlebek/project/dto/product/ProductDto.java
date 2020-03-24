@@ -6,9 +6,11 @@ import org.springframework.format.annotation.NumberFormat;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.Date;
 import java.util.List;
 
 public class ProductDto {
+    private Long id;
     @NotNull
     @Size(max = 70)
     private String name;
@@ -21,6 +23,15 @@ public class ProductDto {
     private double price;
     private Long userId;
     private List<Image> images;
+    private Date addedDate;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getName() {
         return name;
@@ -68,5 +79,13 @@ public class ProductDto {
 
     public void setImages(List<Image> images) {
         this.images = images;
+    }
+
+    public Date getAddedDate() {
+        return addedDate;
+    }
+
+    public void setAddedDate(Date addedDate) {
+        this.addedDate = addedDate;
     }
 }

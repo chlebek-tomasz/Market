@@ -68,4 +68,33 @@ public class ProductServiceImpl implements ProductService {
         productRepository.save(product);
     }
 
+    @Override
+    public ProductDto setProductDto(Product product) {
+        ProductDto productDto = new ProductDto();
+        productDto.setName(product.getName());
+        productDto.setDescription(product.getDescription());
+        productDto.setCategory(product.getCategory().getName());
+        productDto.setImages(product.getImages());
+        productDto.setPrice(product.getPrice());
+        productDto.setUserId(product.getUser().getId());
+        return productDto;
+    }
+
+    @Override
+    public Product setProduct(ProductDto productDto) {
+        Product product = new Product();
+        product.setName(productDto.getName());
+        product.setDescription(productDto.getDescription());
+        product.setUser(userService.setUser());
+        product.setPrice(productDto.getPrice());
+        product.setImages(productDto.getImages());
+        product.setCategory(categoryRepository.findByName(productDto.getCategory()));
+        return product;
+    }
+
+    private boolean checkIfProductIdExistDb(Long id){
+        if(productRepository.existsById(id)){
+            return true;
+        } else return false;
+    }
 }

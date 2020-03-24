@@ -10,8 +10,8 @@
     <tr th:each="product,iterationStatus : ${products}">
         <td th:text="${iterationStatus.count}"></td>
         <td th:text="${product.getName()}"></td>
-        <td><a href="/product/edit/${product.id}">EDIT</a></td>
-        <td><a th:href="@{'/product/delete/' + ${product.id}}">DELETE</a></td>
+        <td><a th:href="@{'/advert/edit/' + ${product.id}}">EDIT</a></td>
+        <td><a th:href="@{'/advert/delete/' + ${product.id}}">DELETE</a></td>
     </tr>
     </tbody>
 </table>
