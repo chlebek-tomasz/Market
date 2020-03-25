@@ -1,17 +1,21 @@
 package com.chlebek.project.controller;
 
+import com.chlebek.project.dto.form.MessageForm;
 import com.chlebek.project.model.product.Category;
 import com.chlebek.project.model.product.Product;
+import com.chlebek.project.model.util.Message;
 import com.chlebek.project.service.UserService;
 import com.chlebek.project.service.product.CategoryService;
 import com.chlebek.project.service.product.ProductService;
 import com.chlebek.project.dto.product.ProductDto;
+import com.chlebek.project.service.util.MessageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -23,6 +27,8 @@ public class AdvertController {
     private CategoryService categoryService;
     @Autowired
     private UserService userService;
+    @Autowired
+    private MessageService messageService;
 
     @GetMapping("/add")
     public String getAdvertAddForm(Model model, Model model2) {
@@ -57,9 +63,10 @@ public class AdvertController {
     }
 
     @GetMapping("/{id}")
-    public String getAdvertForm(@PathVariable ("id") Long id, Model model){
+    public String getAdvertForm(@PathVariable ("id") Long id, Model model, Model model2){
         Product product = productService.getProductById(id);
         model.addAttribute("product", product);
+        model2.addAttribute("message", new Message());
         return "productForm";
     }
 
@@ -92,4 +99,14 @@ public class AdvertController {
         productService.updateProduct(product);
         return "redirect:/advert/{id}";
     }
+
+    @PostMapping("/{id}/sendmessage")
+    public String sendMessage(@PathVariable("id") Long id, @ModelAttribute("message")Message message){
+        message.setSendDate(new Date());
+        message.setSenderId(userService.setUser().getId());
+        message.setReceiverId(productService.getProductById(id).getUser().getId());
+        messageService.save(message);
+        return "redirect:/advert/{id}";
+    }
+
 }

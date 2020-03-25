@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -10,5 +10,12 @@
     <a href="/registration">JOIN US</a>
     <br/><br/>
     <a href="/advert">Add announcement</a>
+    <table>
+        <tbody>
+        <tr th:each="category: ${categories}">
+            <td><a th:href="@{'/category/' + ${category.id}}" th:text="${category.getName()}"></a></td>
+        </tr>
+        </tbody>
+    </table>
 </body>
 </html>
