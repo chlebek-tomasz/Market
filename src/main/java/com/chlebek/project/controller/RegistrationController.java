@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 @Controller
@@ -22,10 +23,10 @@ public class RegistrationController {
     private UserService userService;
 
     @GetMapping
-    public String registration(Model model) {
-        UserRegistrationDto userRegistrationDto = new UserRegistrationDto();
-        model.addAttribute("user", userRegistrationDto);
-        return "registration";
+    public String registration(Model model, HttpSession session) {
+            UserRegistrationDto userRegistrationDto = new UserRegistrationDto();
+            model.addAttribute("user", userRegistrationDto);
+            return "registration";
     }
 
     @PostMapping

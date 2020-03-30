@@ -61,7 +61,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .csrf().disable()
 			.authorizeRequests()
-                .antMatchers("/dashboard", "/profile/**"   ).authenticated()
+                .antMatchers("/dashboard", "/profile/**" , "/advert/add"  ).authenticated()
                 .anyRequest().permitAll()
                 .and()
                 .formLogin()
@@ -74,6 +74,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .httpBasic()
                 .and()
                 .logout()
+                .clearAuthentication(true)
+                .invalidateHttpSession(true)
+                .deleteCookies("JSESSIONID")
                 .logoutSuccessUrl("/");
     }
 
