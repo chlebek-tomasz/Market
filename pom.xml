@@ -83,15 +83,6 @@
 			<artifactId>tomcat-embed-websocket</artifactId>
 			<version>9.0.33</version>
 		</dependency>
-
-		<dependency>
-			<groupId>org.flywaydb</groupId>
-			<artifactId>flyway-core</artifactId>
-			<version>6.3.2</version>
-		</dependency>
-
-
-
 	</dependencies>
 
 	<build>
