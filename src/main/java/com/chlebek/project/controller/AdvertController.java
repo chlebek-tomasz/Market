@@ -66,7 +66,7 @@ public class AdvertController {
     public String getAdvertForm(@PathVariable ("id") Long id, Model model, Model model2){
         Product product = productService.getProductById(id);
         model.addAttribute("product", product);
-        model2.addAttribute("message", new Message());
+        model.addAttribute("message", new Message());
         return "productForm";
     }
 
@@ -100,13 +100,5 @@ public class AdvertController {
         return "redirect:/advert/{id}";
     }
 
-    @PostMapping("/{id}/sendmessage")
-    public String sendMessage(@PathVariable("id") Long id, @ModelAttribute("message")Message message){
-        message.setSendDate(new Date());
-        message.setSenderId(userService.setUser().getId());
-        message.setReceiverId(productService.getProductById(id).getUser().getId());
-        messageService.save(message);
-        return "redirect:/advert/{id}";
-    }
 
 }

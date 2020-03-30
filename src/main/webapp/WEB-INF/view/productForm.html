@@ -22,11 +22,12 @@
     </tbody>
 </table>
 <div>
-    <form name="@{/advert/{id}/sendmessage" th:object="${message}" th:action="@{'/advert/' + ${product.id} + '/sendmessage'}" method="post">
+    <form name="@{/advert/{id}/sendmessage" th:object="${message}" th:action="@{'/' + ${product.id} + '/sendmessage'}" method="post">
     <label>Message</label><br/>
-    <input type="text" id="inputMessage" th:field="*{text}"/>
-    <p th:if="${#fields.hasErrors('text')}" th:errors="*{text}">Message error</p>
-    <br/>
+        <input type="hidden" th:value="${message.id}" name="id">
+        <input type="text" id="inputMessage" th:field="*{text}"/>
+        <p th:if="${#fields.hasErrors('text')}" th:errors="*{text}">Message error</p>
+        <br/>
         <button type="submit">Register</button>
     </form>
 </div>

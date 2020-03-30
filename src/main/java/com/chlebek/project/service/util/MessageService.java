@@ -5,7 +5,7 @@ import com.chlebek.project.model.util.Message;
 import java.util.List;
 
 public interface MessageService {
-    void save(Message message);
+    void save(Message message, Long id);
 
     List<Message> getMessages(Long senderId, Long receiverId);
 }

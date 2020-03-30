@@ -1,14 +1,13 @@
 package com.chlebek.project.model.util;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.Date;
 
 @Entity
 @Table
 public class Message {
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String text;
     private Long senderId;
