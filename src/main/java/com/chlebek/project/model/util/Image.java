@@ -1,18 +1,23 @@
 package com.chlebek.project.model.util;
 
-import com.chlebek.project.model.product.Product;
-
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
 @Entity
-@Table(name = "images")
 public class Image {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    private String name;
     private String path;
-    @ManyToOne
-    private Product product;
+
+    public Image(){}
+
+    public Image(String name){
+        this.name = name;
+    }
 
     public Long getId() {
         return id;
@@ -22,19 +27,19 @@ public class Image {
         this.id = id;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public String getPath() {
         return path;
     }
 
     public void setPath(String path) {
         this.path = path;
-    }
-
-    public Product getProduct() {
-        return product;
-    }
-
-    public void setProduct(Product product) {
-        this.product = product;
     }
 }

@@ -1,18 +1,18 @@
 package com.chlebek.project.dto.product;
 
-import com.chlebek.project.model.product.Category;
 import com.chlebek.project.model.util.Image;
 import org.springframework.format.annotation.NumberFormat;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 public class ProductDto {
     private Long id;
     @NotNull
-    @Size(max = 70)
     private String name;
     @Size(max = 9000)
     private String description;
@@ -22,7 +22,7 @@ public class ProductDto {
     @NumberFormat
     private double price;
     private Long userId;
-    private List<Image> images;
+    private List<MultipartFile> images = new ArrayList<>();
     private Date addedDate;
 
     public Long getId() {
@@ -73,11 +73,11 @@ public class ProductDto {
         this.userId = userId;
     }
 
-    public List<Image> getImages() {
+    public List<MultipartFile> getImages() {
         return images;
     }
 
-    public void setImages(List<Image> images) {
+    public void setImages(List<MultipartFile> images) {
         this.images = images;
     }
 

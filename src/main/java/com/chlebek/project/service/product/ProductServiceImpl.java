@@ -1,13 +1,17 @@
 package com.chlebek.project.service.product;
 
 import com.chlebek.project.model.product.Product;
+import com.chlebek.project.model.util.Image;
 import com.chlebek.project.repository.product.CategoryRepository;
 import com.chlebek.project.repository.product.ProductRepository;
 import com.chlebek.project.service.UserService;
 import com.chlebek.project.dto.product.ProductDto;
+import com.chlebek.project.service.util.ImageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -19,6 +23,8 @@ public class ProductServiceImpl implements ProductService {
     private UserService userService;
     @Autowired
     private CategoryRepository categoryRepository;
+    @Autowired
+    private ImageService imageService;
 
     @Override
     public Product getProductByName(String name) {
@@ -51,13 +57,19 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Product addProduct(ProductDto productDto) {
+    public Product addProduct(ProductDto productDto) throws Exception {
         Product product = new Product();
         product.setName(productDto.getName());
         product.setCategory(categoryRepository.findByName(productDto.getCategory()));
         product.setDescription(productDto.getDescription());
         product.setPrice(productDto.getPrice());
-        product.setImages(productDto.getImages());
+        for(MultipartFile file : productDto.getImages()){
+            Image image = new Image(file.getOriginalFilename());
+            image.setPath("/images/");
+            product.getImages().add(image);
+            imageService.saveImage(image, file);
+            imageService.save(image);
+        }
         product.setUser(userService.setUser());
         product.setAddedDate(new Date());
         return productRepository.save(product);
@@ -74,7 +86,6 @@ public class ProductServiceImpl implements ProductService {
         productDto.setName(product.getName());
         productDto.setDescription(product.getDescription());
         productDto.setCategory(product.getCategory().getName());
-        productDto.setImages(product.getImages());
         productDto.setPrice(product.getPrice());
         productDto.setUserId(product.getUser().getId());
         return productDto;
@@ -87,7 +98,10 @@ public class ProductServiceImpl implements ProductService {
         product.setDescription(productDto.getDescription());
         product.setUser(userService.setUser());
         product.setPrice(productDto.getPrice());
-        product.setImages(productDto.getImages());
+        for(MultipartFile file : productDto.getImages()) {
+            Image image = new Image(file.getOriginalFilename());
+            product.getImages().add(image);
+        }
         product.setCategory(categoryRepository.findByName(productDto.getCategory()));
         return product;
     }

@@ -11,7 +11,7 @@
 <body>
 <table>
     <tbody>
-    <form name="@{/advert/add}" th:object="${product}" th:action="@{/advert/add}" method="post">
+    <form name="@{/advert/add}" th:object="${product}" th:action="@{/advert/add}" method="post" enctype="multipart/form-data">
         <tr>
             <td><label>Product name:</label></td>
             <td><input type="text" id="inputName" th:field="*{name}" placeholder="Name"/></td>
@@ -36,6 +36,10 @@
             <td><label>Price:</label></td>
             <td><input type="number" id="inputPrice" th:field="*{price}" placeholder="Price"/></td>
             <p th:if="${#fields.hasErrors('price')}" th:errors="*{price}">Price error</p>
+        </tr>
+        <tr>
+            <td><label>Upload Image:</label></td>
+            <td><input type="file" id="file" th:field="*{images}" multiple="multiple"/></td>
         </tr>
         <tr>
             <td><button type="submit">Add item</button></td>

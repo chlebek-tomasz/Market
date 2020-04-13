@@ -9,4 +9,7 @@ import java.util.List;
 public interface MessageRepository extends JpaRepository<Message, Long> {
     @Query("SELECT m FROM Message m WHERE (m.senderId=:senderId AND m.receiverId=:receiverId) OR (m.senderId=:receiverId AND m.receiverId=:senderId) ORDER BY m.sendDate ASC ")
     List<Message> find(Long senderId, Long receiverId);
+
+    @Query("SELECT m FROM Message m WHERE m.receiverId=:receiverId ORDER BY m.sendDate ASC")
+    List<Message> findReceive(Long receiverId);
 }

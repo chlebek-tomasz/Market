@@ -8,4 +8,6 @@ public interface MessageService {
     void save(Message message, Long id);
 
     List<Message> getMessages(Long senderId, Long receiverId);
+
+    List<Message> getMessagesToUser(Long receiverId);
 }

@@ -16,7 +16,7 @@ public interface ProductService {
 
     List<Product> getAllUsersProducts(Long userId);
 
-    Product addProduct(ProductDto product);
+    Product addProduct(ProductDto product) throws Exception;
 
     void updateProduct(Product product);
 

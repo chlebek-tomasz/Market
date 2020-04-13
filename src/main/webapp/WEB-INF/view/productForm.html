@@ -8,6 +8,9 @@
 <table>
     <tbody>
     <tr>
+        <td th:each="image : ${product.getImages()}"><img style="height: 200px; width: 200px;" th:src="@{'../images/' + ${image.getName()}}"/></td>
+    </tr>
+    <tr>
         <td><h3 th:text="${product.getName()}"/></td>
     </tr>
     <tr>

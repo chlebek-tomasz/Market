@@ -32,4 +32,11 @@ public class MessageServiceImpl implements MessageService {
     public List<Message> getMessages(Long senderId, Long receiverId) {
         return messageRepository.find(senderId, receiverId);
     }
+
+    @Override
+    public List<Message> getMessagesToUser(Long receiverId) {
+        return messageRepository.findReceive(receiverId);
+    }
+
+
 }

@@ -2,8 +2,10 @@ package com.chlebek.project.model.product;
 
 import com.chlebek.project.model.user.User;
 import com.chlebek.project.model.util.Image;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -23,8 +25,8 @@ public class Product {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
-    @OneToMany
-    private List<Image> images;
+    @OneToMany(cascade = CascadeType.ALL)
+    private List<Image> images =  new ArrayList<>();
 
     public Long getId() {
         return id;

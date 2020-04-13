@@ -1,9 +1,9 @@
 package com.chlebek.project.controller;
 
-import com.chlebek.project.dto.form.MessageForm;
-import com.chlebek.project.model.product.Category;
 import com.chlebek.project.model.product.Product;
+import com.chlebek.project.model.util.Image;
 import com.chlebek.project.model.util.Message;
+import com.chlebek.project.repository.util.ImageRepository;
 import com.chlebek.project.service.UserService;
 import com.chlebek.project.service.product.CategoryService;
 import com.chlebek.project.service.product.ProductService;
@@ -14,13 +14,24 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
-import java.util.Date;
+import javax.servlet.http.HttpServletRequest;
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @Controller
 @RequestMapping("/advert")
 public class AdvertController {
+    public static final String uploadingDir = System.getProperty("user.dir") + "/uploadingDir/";
     @Autowired
     private ProductService productService;
     @Autowired
@@ -29,16 +40,18 @@ public class AdvertController {
     private UserService userService;
     @Autowired
     private MessageService messageService;
+    @Autowired
+    private ImageRepository imageRepository;
 
     @GetMapping("/add")
-    public String getAdvertAddForm(Model model, Model model2) {
-        model2.addAttribute("categories", categoryService.getAllCategories());
+    public String getAdvertAddForm(Model model) {
+        model.addAttribute("categories", categoryService.getAllCategories());
         model.addAttribute("product", new ProductDto());
         return "addadvert";
     }
 
     @PostMapping("/add")
-    public String addAdvert(@ModelAttribute("product") ProductDto productDto, BindingResult result, Model model) {
+    public String addAdvert(@ModelAttribute("product") ProductDto productDto, @RequestParam(value = "images", required = false) MultipartFile[] file, BindingResult result, Model model, HttpServletRequest request) throws Exception {
         if (result.hasErrors()) {
             result.rejectValue("name", "error.product", "Name too short");
             model.addAttribute("categories", categoryService.getAllCategories());
@@ -55,11 +68,28 @@ public class AdvertController {
             result.rejectValue("price", "error.product", "Price cannot be empty and must be number format");
             model.addAttribute("categories", categoryService.getAllCategories());
             return "addadvert";
+        } else if (result.hasErrors()) {
+            result.rejectValue("images", "error.product", "Problem with image");
+            model.addAttribute("categories", categoryService.getAllCategories());
+            return "addadvert";
         } else {
-            Product product = productService.addProduct(productDto);
-            model.addAttribute("id", product.getId());
-            return "redirect:/advert/{id}";
-        }
+            for (MultipartFile file1 : file) {
+                try {
+                    UUID uuid = UUID.randomUUID();
+                    String filename = "/uploads/upload_" + uuid.toString();
+                    byte[] bytes = file1.getBytes();
+                    File fsFile = new File(filename);
+                    BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(fsFile));
+                    stream.write(bytes);
+                    stream.close();
+                } catch (Exception e) {
+                    e.getMessage();
+                    }
+                }
+            }
+                Product product = productService.addProduct(productDto);
+                model.addAttribute("id", product.getId());
+                return "redirect:/advert/{id}";
     }
 
     @GetMapping("/{id}")
@@ -100,5 +130,15 @@ public class AdvertController {
         return "redirect:/advert/{id}";
     }
 
+    private String saveImage(MultipartFile multipartFile) {
+        try {
+            byte[] bytes = multipartFile.getBytes();
+            Path path = Paths.get("/resources/" + multipartFile.getOriginalFilename());
+            Files.write(path, bytes);
+            return multipartFile.getOriginalFilename();
+        } catch (IOException e) {
+            return null;
+        }
+    }
 
 }

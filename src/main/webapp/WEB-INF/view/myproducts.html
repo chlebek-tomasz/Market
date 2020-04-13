@@ -6,6 +6,21 @@
 </head>
 <body>
 <div th:include="header"></div>
+
+<div class="mx-auto" style="width: 70%; background: aquamarine">
+    <div th:each="product,iterationStatus : ${products}">
+        <div>
+            <a th:href="@{'/advert/' + ${product.id}}">
+                <img src="..." alt="..." class="rounded">
+            </a>
+        </div>
+        <div>
+            <a th:href="@{'/advert/' + ${product.id}}" th:text="${product.getName()}"/>
+        </div>
+    </div>
+</div>
+
+<!---
 <table>
     <tbody>
     <tr th:each="product,iterationStatus : ${products}">
@@ -16,5 +31,6 @@
     </tr>
     </tbody>
 </table>
+-->
 </body>
 </html>
