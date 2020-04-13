@@ -1,6 +1,5 @@
 package com.chlebek.project.dto;
 
-import com.chlebek.project.model.user.Address;
 import com.chlebek.project.validation.PasswordMatches;
 
 import javax.validation.constraints.Email;
@@ -24,7 +23,6 @@ public class UserRegistrationDto {
     @NotNull
     @Size(max = 40)
     private String lastName;
-    private Address address;
     @NotNull
     private String phoneNumber;
     private String joinedDate;
@@ -67,14 +65,6 @@ public class UserRegistrationDto {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
-    }
-
-    public Address getAddress() {
-        return address;
-    }
-
-    public void setAddress(Address address) {
-        this.address = address;
     }
 
     public String getPhoneNumber() {

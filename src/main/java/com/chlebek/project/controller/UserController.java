@@ -42,13 +42,9 @@ public class UserController {
     public String showMyProfile(Model model){
         User user = userService.setUser();
         model.addAttribute("user", user);
-        return "profile";
-    }
-
-    @GetMapping("/profile/changepassword")
-    public String changePasswordForm(Model model){
+        model.addAttribute("emailForm", new EmailForm());
         model.addAttribute("passwordForm", new PasswordForm());
-        return "changepassword";
+        return "profile";
     }
 
     @PostMapping("/profile/changepassword")
@@ -65,18 +61,12 @@ public class UserController {
         return "profile";
     }
 
-    @GetMapping("/profile/changeemail")
-    public String changeEmailForm(Model model){
-        model.addAttribute("emailForm", new EmailForm());
-        return "changeemail";
-    }
-
     @PostMapping("/profile/changeemail")
-    public String changeEmail(@Valid @ModelAttribute EmailForm emailForm, BindingResult result, Model model){
+    public String changeEmail(@Valid @ModelAttribute("emailForm") EmailForm emailForm, BindingResult result, Model model){
         User user = userService.setUser();
         if(!emailForm.getEmail().equals(emailForm.getEmailConfirm())){
             result.rejectValue("email", "error.user", "Emails don't match");
-            return "changeemail";
+            return "profile";
         }else {
             user.setEmail(emailForm.getEmail());
             userService.updateUser(user);

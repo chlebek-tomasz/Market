@@ -5,6 +5,8 @@
     <title>Title</title>
 </head>
 <body>
+    <div th:include="header"></div>
+    <div>
     <form name="f" th:action="@{/login}" method="post">
         <div class="form-group">
             <input type="text" id="email" name="email"class="form-control" placeholder="Email" required autofocus>
@@ -16,7 +18,6 @@
 
         <button type="submit">Sign in</button>
     </form>
-    <p><a th:href="@{/}">Home</a></p>
-    <p><a th:href="@{/registration}">Sign up</a></p>
+    </div>
 </body>
 </html>

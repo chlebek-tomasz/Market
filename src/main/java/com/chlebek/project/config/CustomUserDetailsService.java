@@ -35,8 +35,12 @@ public class CustomUserDetailsService implements UserDetailsService {
         System.out.println(email);
         User user = userService.getUserByEmail(email);
         if (user != null) {
-            List<GrantedAuthority> authorities = getUserAuthority(user.getRoles());
-            return buildUserForAuthentication(user, authorities);
+            if(user.isEnabled()){
+                List<GrantedAuthority> authorities = getUserAuthority(user.getRoles());
+                return buildUserForAuthentication(user, authorities);}
+            else {
+                throw new UsernameNotFoundException("Username is disabled");
+            }
         } else {
             throw new UsernameNotFoundException("user with email " + email + " does not exist.");
         }

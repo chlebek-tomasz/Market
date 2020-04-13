@@ -15,16 +15,10 @@ public class User {
     private String firstName;
     private String lastName;
     private String joinedDate;
-    @Embedded
-    @AttributeOverrides({
-            @AttributeOverride( name = "country", column = @Column(name = "country")),
-            @AttributeOverride( name = "city", column = @Column(name = "city")),
-            @AttributeOverride( name = "zipCode", column = @Column(name = "zip_code")),
-            @AttributeOverride( name = "street", column = @Column(name = "street")),
-            @AttributeOverride( name = "homeNumber", column = @Column(name = "home_number"))
-    })
-    private Address address;
     private String phoneNumber;
+    private boolean isEnabled;
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+    private VerificationToken verificationToken;
     @ManyToMany
     private Set<Role> roles = new HashSet<Role>();
 
@@ -76,14 +70,6 @@ public class User {
         this.joinedDate = joinedDate;
     }
 
-    public Address getAddress() {
-        return address;
-    }
-
-    public void setAddress(Address address) {
-        this.address = address;
-    }
-
     public String getPhoneNumber() {
         return phoneNumber;
     }
@@ -91,6 +77,24 @@ public class User {
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
+
+    public VerificationToken getVerificationToken() {
+        return verificationToken;
+    }
+
+    public void setVerificationToken(VerificationToken verificationToken) {
+        this.verificationToken = verificationToken;
+    }
+
+    public boolean isEnabled() {
+        return isEnabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        isEnabled = enabled;
+    }
+
+
 
     public Set<Role> getRoles() {
         return roles;

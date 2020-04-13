@@ -3,6 +3,7 @@ package com.chlebek.project.service;
 import com.chlebek.project.exception.EmailExistsException;
 import com.chlebek.project.model.user.User;
 import com.chlebek.project.repository.RoleRepository;
+import com.chlebek.project.repository.VerificationTokenRepository;
 import com.chlebek.project.repository.UserRepository;
 import com.chlebek.project.util.DateUtils;
 import com.chlebek.project.dto.UserRegistrationDto;
@@ -18,6 +19,10 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.mail.MessagingException;
+import javax.validation.constraints.Null;
+import java.util.UUID;
+
 @Service
 @Transactional
 public class UserServiceImpl implements UserService {
@@ -27,15 +32,19 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private AuthenticationManager auth;
     @Autowired
+    private SendingMailService sendingMailService;
+    @Autowired
     private UserRepository userRepository;
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
+    @Autowired
+    private VerificationTokenRepository tokenRepository;
     @Autowired
     private RoleRepository roleRepository;
 
     @Override
     public User getUserByEmail(String email) {
-        return userRepository.findByEmail(email);
+        return userRepository.findByemail(email);
     }
 
     @Override
@@ -54,7 +63,6 @@ public class UserServiceImpl implements UserService {
             userObject.setFirstName(user.getFirstName());
             userObject.setLastName(user.getLastName());
             userObject.setPhoneNumber(user.getPhoneNumber());
-            userObject.setAddress(user.getAddress());
             userObject.setJoinedDate(DateUtils.todayStr());
             long customerRoleId = 1;
             userObject.getRoles().add(roleRepository.getRoleById(customerRoleId));
@@ -72,7 +80,7 @@ public class UserServiceImpl implements UserService {
 
     private boolean checkEmailExists(String email) {
         User user = null;
-        user = userRepository.findByEmail(email);
+        user = userRepository.findByemail(email);
 
         if (user != null) {
             return true;
@@ -99,4 +107,17 @@ public class UserServiceImpl implements UserService {
         UserDetails userDetails = (UserDetails) auth.getPrincipal();
         return getUserByEmail(userDetails.getUsername());
     }
+
+    @Override
+    public boolean isLogin() {
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (principal instanceof UserDetails) {
+            String username = ((UserDetails)principal).getUsername();
+            return true;
+        } else {
+            String username = principal.toString();
+            return false;
+        }
+    }
+
 }

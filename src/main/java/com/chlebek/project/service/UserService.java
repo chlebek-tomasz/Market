@@ -16,4 +16,6 @@ public interface UserService {
     void autoLogin(String email, String password);
 
     User setUser();
+
+    boolean isLogin();
 }
