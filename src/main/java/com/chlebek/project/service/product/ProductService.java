@@ -1,5 +1,6 @@
 package com.chlebek.project.service.product;
 
+import com.chlebek.project.model.product.Category;
 import com.chlebek.project.model.product.Product;
 import com.chlebek.project.dto.product.ProductDto;
 
@@ -25,4 +26,8 @@ public interface ProductService {
     ProductDto setProductDto(Product product);
 
     Product setProduct(ProductDto productDto);
+
+    List<Product> getProductsBySearchingByText(String text);
+
+    List<Product> getProductsBySearchingByTextAndCategory(String text, Category category);
 }

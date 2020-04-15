@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div th:include="header"></div>
+<div class="mx-auto" style="width: 70%; background: aquamarine">
+    <div th:each="product,iterationStatus : ${products}">
+        <div>
+            <a th:href="@{'/advert/' + ${product.id}}">
+                <img src="..." alt="..." class="rounded">
+            </a>
+        </div>
+        <div>
+            <a th:href="@{'/advert/' + ${product.id}}" th:text="${product.getName()}"/>
+        </div>
+    </div>
+</div>
+</body>
+</html>

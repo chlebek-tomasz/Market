@@ -73,23 +73,10 @@ public class AdvertController {
             model.addAttribute("categories", categoryService.getAllCategories());
             return "addadvert";
         } else {
-            for (MultipartFile file1 : file) {
-                try {
-                    UUID uuid = UUID.randomUUID();
-                    String filename = "/uploads/upload_" + uuid.toString();
-                    byte[] bytes = file1.getBytes();
-                    File fsFile = new File(filename);
-                    BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(fsFile));
-                    stream.write(bytes);
-                    stream.close();
-                } catch (Exception e) {
-                    e.getMessage();
-                    }
-                }
-            }
-                Product product = productService.addProduct(productDto);
-                model.addAttribute("id", product.getId());
-                return "redirect:/advert/{id}";
+            Product product = productService.addProduct(productDto);
+            model.addAttribute("id", product.getId());
+            return "redirect:/advert/{id}";
+        }
     }
 
     @GetMapping("/{id}")
@@ -128,17 +115,6 @@ public class AdvertController {
         product.setAddedDate(productService.getProductById(product.getId()).getAddedDate());
         productService.updateProduct(product);
         return "redirect:/advert/{id}";
-    }
-
-    private String saveImage(MultipartFile multipartFile) {
-        try {
-            byte[] bytes = multipartFile.getBytes();
-            Path path = Paths.get("/resources/" + multipartFile.getOriginalFilename());
-            Files.write(path, bytes);
-            return multipartFile.getOriginalFilename();
-        } catch (IOException e) {
-            return null;
-        }
     }
 
 }

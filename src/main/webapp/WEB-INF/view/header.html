@@ -26,9 +26,9 @@
             </a>
         </div>
         <ul class="nav justify-content-center">
-            <form class="form-inline" th:action="@{/categories}" method="get">
-                <input style="width: 550px" class="form-control mr-sm-0" type="search" placeholder="Search" aria-label="Search">
-                <select class="btn btn-secondary dropdown-toggle mr-sm-2" id="inlineFormCustomSelectPref">
+            <form class="form-inline" th:action="@{/search}" method="post">
+                <input style="width: 550px" class="form-control mr-sm-0" id="text" type="search" placeholder="Search" aria-label="Search">
+                <select class="btn btn-secondary dropdown-toggle mr-sm-2" id="category">
                     <option value="" selected>Choose...</option>
                     <option th:each="category : ${@categoryService.getAllCategories()}" th:text="${category.name}" th:value="${category.name}"/>
                 </select>

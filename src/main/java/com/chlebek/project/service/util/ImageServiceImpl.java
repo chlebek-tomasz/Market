@@ -18,14 +18,19 @@ public class ImageServiceImpl implements ImageService {
     public void saveImage(Image image, MultipartFile file) throws Exception {
         Path currentPath = Paths.get("");
         Path absolutePath = currentPath.toAbsolutePath();
-        image.setPath(absolutePath + "/src/main/resources/static/images/");
+        image.setPath(absolutePath + "/src/main/webapp/upload/images/");
         byte[] bytes = file.getBytes();
         Path path = Paths.get(image.getPath() + file.getOriginalFilename());
-        Files.write(path, bytes);
+        if(bytes.length!=0) {
+            Files.write(path, bytes);
+        }
     }
 
     @Override
     public void save(Image image) {
+        if(image.getName().isEmpty()) {
+            image.setName("default.jpg");
+        }
         imageRepository.save(image);
     }
 }

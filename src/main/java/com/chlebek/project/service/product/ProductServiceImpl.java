@@ -1,5 +1,6 @@
 package com.chlebek.project.service.product;
 
+import com.chlebek.project.model.product.Category;
 import com.chlebek.project.model.product.Product;
 import com.chlebek.project.model.util.Image;
 import com.chlebek.project.repository.product.CategoryRepository;
@@ -63,12 +64,14 @@ public class ProductServiceImpl implements ProductService {
         product.setCategory(categoryRepository.findByName(productDto.getCategory()));
         product.setDescription(productDto.getDescription());
         product.setPrice(productDto.getPrice());
-        for(MultipartFile file : productDto.getImages()){
-            Image image = new Image(file.getOriginalFilename());
-            image.setPath("/images/");
-            product.getImages().add(image);
-            imageService.saveImage(image, file);
-            imageService.save(image);
+        if(!productDto.getImages().isEmpty()) {
+            for (MultipartFile file : productDto.getImages()) {
+                Image image = new Image(file.getOriginalFilename());
+                image.setPath("/images/");
+                product.getImages().add(image);
+                imageService.saveImage(image, file);
+                imageService.save(image);
+            }
         }
         product.setUser(userService.setUser());
         product.setAddedDate(new Date());
@@ -104,6 +107,16 @@ public class ProductServiceImpl implements ProductService {
         }
         product.setCategory(categoryRepository.findByName(productDto.getCategory()));
         return product;
+    }
+
+    @Override
+    public List<Product> getProductsBySearchingByText(String text) {
+        return productRepository.getProductBySearchingByText(text);
+    }
+
+    @Override
+    public List<Product> getProductsBySearchingByTextAndCategory(String text, Category category) {
+        return productRepository.getProductBySearchingByTextAndCategory(text, category);
     }
 
     private boolean checkIfProductIdExistDb(Long id){

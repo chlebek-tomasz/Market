@@ -5,34 +5,43 @@
     <title th:text="${product.getName()}"></title>
 </head>
 <body>
-<table>
-    <tbody>
-    <tr>
-        <td th:each="image : ${product.getImages()}"><img style="height: 200px; width: 200px;" th:src="@{'../images/' + ${image.getName()}}"/></td>
-    </tr>
-    <tr>
-        <td><h3 th:text="${product.getName()}"/></td>
-    </tr>
-    <tr>
-        <td><h3 th:text="${product.getDescription()}"/></td>
-    </tr>
-    <tr>
-        <td><p th:text="${product.category.name}"/></td>
-    </tr>
-    <tr>
-        <td><p th:text="${product.getPrice()}"/></td>
-    </tr>
-    </tbody>
-</table>
-<div>
-    <form name="@{/advert/{id}/sendmessage" th:object="${message}" th:action="@{'/' + ${product.id} + '/sendmessage'}" method="post">
-    <label>Message</label><br/>
-        <input type="hidden" th:value="${message.id}" name="id">
-        <input type="text" id="inputMessage" th:field="*{text}"/>
-        <p th:if="${#fields.hasErrors('text')}" th:errors="*{text}">Message error</p>
-        <br/>
-        <button type="submit">Register</button>
-    </form>
+<div th:include="header"></div>
+<div class="container-lg bg-light">
+    <nav class="navbar navbar-light bg-light">
+        <div class="d-flex justify-content-start">
+            <a th:href="@{'/category/' + ${product.category.id}}">Wszystkie produkty z kategorii <p th:text="${product.category.name}"/></a>
+        </div>
+        <div class="d-flex justify-content-end">
+            <a th:href="@{'/user/' + ${product.user.id}}">Wszystkie produkty uzytkownika <p th:text="${product.user.firstName}"/></a>
+        </div>
+    </nav>
+    <div class="text-center">
+        <td th:each="image : ${product.getImages()}"><img class="rounded" style="height: 400px; width: 400px;" th:src="@{'../images/' + ${image.getName()}}"/></td>
+    </div>
+
+    <table>
+        <tbody>
+        <tr>
+            <td><h3 th:text="${product.getName()}"/></td>
+        </tr>
+        <tr>
+            <td><h3 th:text="${product.getDescription()}"/></td>
+        </tr>
+        <tr>
+            <td><p th:text="${product.getPrice()}"/></td>
+        </tr>
+        </tbody>
+    </table>
+
+    <div class="form-group" th:if="${@userService.isLogin()}">
+        <form name="@{/advert/{id}/sendmessage" th:object="${message}" th:action="@{'/' + ${product.id} + '/sendmessage'}" method="post">
+            <label for="exampleFormControlTextarea1">Send message to seller</label>
+            <input type="hidden" th:value="${message.id}" name="id">
+            <textarea class="form-control" id="exampleFormControlTextarea1" rows="4" th:field="*{text}"></textarea>
+            <p th:if="${#fields.hasErrors('text')}" th:errors="*{text}">Message error</p>
+            <button type="submit">Send</button>
+        </form>
+    </div>
 </div>
 </body>
 </html>
