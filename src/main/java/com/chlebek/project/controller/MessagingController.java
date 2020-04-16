@@ -1,5 +1,6 @@
 package com.chlebek.project.controller;
 
+import com.chlebek.project.model.product.Product;
 import com.chlebek.project.model.user.User;
 import com.chlebek.project.model.util.Message;
 import com.chlebek.project.service.UserService;
@@ -50,4 +51,6 @@ public class MessagingController {
     public String getTest(){
         return "header";
     }
+
+
 }

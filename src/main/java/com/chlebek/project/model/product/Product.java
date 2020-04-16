@@ -91,4 +91,5 @@ public class Product {
     public void setAddedDate(Date addedDate) {
         this.addedDate = addedDate;
     }
+
 }
