@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div th:include="header"></div>
+<div class="container-lg bg-light">
+    <div th:each="message : ${messages}">
+        <div class="justify-content-start" th:unless="${user.getId() == message.getReceiverId()}">
+            <div th:text="${userService.getUserById(message.getSenderId()).getFirstName()}"></div>
+            <div th:text="${message.getText()}"></div>
+        </div>
+        <div class="justify-content-end" th:if="${user.getId() == message.getReceiverId()}">
+            <div th:text="${user.getFirstName()}"></div>
+            <div th:text="${message.getText()}"></div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

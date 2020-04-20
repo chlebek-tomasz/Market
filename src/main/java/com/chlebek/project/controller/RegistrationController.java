@@ -25,7 +25,7 @@ public class RegistrationController {
     private VerificationTokenService verificationTokenService;
 
     @GetMapping
-    public String registration(Model model, HttpSession session) {
+    public String registration(Model model) {
             UserRegistrationDto userRegistrationDto = new UserRegistrationDto();
             model.addAttribute("user", userRegistrationDto);
             return "registration";

@@ -6,11 +6,21 @@
 </head>
 <body>
     <div th:include="header"></div>
-    <div th:each="message : ${messages}">
-        <tr>
-            <td th:text="${message.key.getFirstName()} + ' ' + ${message.key.getLastName()}"></td>
-            <td th:text="${message.value}"></td>
-        </tr>
+    <div class="container-lg bg-light">
+        <div class="row">
+            <div class="col-4">FROM</div>
+            <div class="col-4">MESSAGE</div>
+        </div>
+
+        <div style="height: 5px;"/>
+
+        <div class="row" style="height: 100px;" th:each="message : ${messages}">
+            <div class="col-4" th:text="${message.key.getFirstName()} + ' ' + ${message.key.getLastName()}"></div>
+            <a th:href="@{'/messages/' + ${message.key.getId()}}">
+                <div class="col-4" th:text="${message.value}"></div>
+            </a>
+        </div>
+
     </div>
 </body>
 </html>

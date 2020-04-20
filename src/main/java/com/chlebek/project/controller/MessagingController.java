@@ -52,5 +52,19 @@ public class MessagingController {
         return "header";
     }
 
+    @GetMapping("/messages/{id}")
+    public String showConversation(@PathVariable ("id") Long id, Model model){
+        User user = userService.setUser();
+//        List<Message> messages = messageService.getMessages(user.getId(), id);
+//        Map<User, String> messageMap = new HashMap<>();
+//        for(Message message : messages){
+//            if (!messageMap.containsKey(message.getSenderId())){
+//                messageMap.put(userService.getUserById(message.getSenderId()), message.getText());
+//            }
+//        }
+        model.addAttribute("user", userService.setUser());
+        model.addAttribute("messages", messageService.getMessages(user.getId(), id));
+        return "conversation";
+    }
 
 }
