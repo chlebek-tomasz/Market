@@ -33,6 +33,13 @@ public class MessagingController {
         return "redirect:/advert/{id}";
     }
 
+    @PostMapping("/sendmessage/{id}")
+    public String sendMessageV2(@PathVariable("id") Long id, @ModelAttribute("message") Message message){
+        //Long senderId = Long.parseLong(id);
+        messageService.saveFromUser(message, id);
+        return "redirect:/messages";
+    }
+
     @GetMapping("/messages")
     public String showMessages(Model model){
         User user = userService.setUser();
@@ -55,15 +62,10 @@ public class MessagingController {
     @GetMapping("/messages/{id}")
     public String showConversation(@PathVariable ("id") Long id, Model model){
         User user = userService.setUser();
-//        List<Message> messages = messageService.getMessages(user.getId(), id);
-//        Map<User, String> messageMap = new HashMap<>();
-//        for(Message message : messages){
-//            if (!messageMap.containsKey(message.getSenderId())){
-//                messageMap.put(userService.getUserById(message.getSenderId()), message.getText());
-//            }
-//        }
         model.addAttribute("user", userService.setUser());
         model.addAttribute("messages", messageService.getMessages(user.getId(), id));
+        model.addAttribute("senderId", id);
+        model.addAttribute("message", new Message());
         return "conversation";
     }
 

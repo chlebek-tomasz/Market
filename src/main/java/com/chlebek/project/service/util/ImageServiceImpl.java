@@ -32,7 +32,7 @@ public class ImageServiceImpl implements ImageService {
 
     @Override
     public void save(Image image) {
-        if(image.getName().isEmpty()) {
+        if(image.getName()==null) {
             image.setPath("https://res.cloudinary.com/chlebekcloudserver/image/upload/v1587400933/default_xaypae.jpg");
         }
         imageRepository.save(image);

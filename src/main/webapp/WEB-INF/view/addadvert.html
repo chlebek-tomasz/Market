@@ -9,43 +9,46 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
 </head>
 <body>
-<table>
-    <tbody>
-    <form name="@{/advert/add}" th:object="${product}" th:action="@{/advert/add}" method="post" enctype="multipart/form-data">
-        <tr>
-            <td><label>Product name:</label></td>
-            <td><input type="text" id="inputName" th:field="*{name}" placeholder="Name"/></td>
-            <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name error</p>
-        </tr>
-        <tr>
-            <td><label>Description:</label></td>
-            <td><input type="text" id="description" th:field="*{description}" placeholder="Description" required max="9000"/></td>
-            <p th:if="${#fields.hasErrors('description')}" th:errors="*{description}">Description error</p>
-        </tr>
-        <tr>
-            <td><label>Category</label></td>
-            <td>
-            <select id="inlineFormCustomSelectPref" th:field="*{category}">
-                <option value="" selected>Choose...</option>
-                <option th:each="category : ${categories}" th:text="${category.name}" th:value="${category.name}"/>
-            </select>
-                <p th:if="${#fields.hasErrors('category')}" th:errors="*{category}">Category error</p>
-            </td>
-        </tr>
-        <tr>
-            <td><label>Price:</label></td>
-            <td><input type="number" id="inputPrice" th:field="*{price}" placeholder="Price"/></td>
-            <p th:if="${#fields.hasErrors('price')}" th:errors="*{price}">Price error</p>
-        </tr>
-        <tr>
-            <td><label>Upload Image:</label></td>
-            <td><input type="file" id="file" th:field="*{images}" multiple="multiple"/></td>
-        </tr>
-        <tr>
-            <td><button type="submit">Add item</button></td>
-        </tr>
-    </form>
-    </tbody>
-</table>
+<div th:include="header"></div>
+<div class="container-lg bg-light">
+    <table class="justify-content-center">
+        <tbody>
+        <form name="@{/advert/add}" th:object="${product}" th:action="@{/advert/add}" method="post" enctype="multipart/form-data">
+            <tr>
+                <td><label>Product name:</label></td>
+                <td><input type="text" id="inputName" th:field="*{name}" placeholder="Name"/></td>
+                <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name error</p>
+            </tr>
+            <tr>
+                <td><label>Description:</label></td>
+                <td><input type="text" id="description" th:field="*{description}" placeholder="Description" required max="9000"/></td>
+                <p th:if="${#fields.hasErrors('description')}" th:errors="*{description}">Description error</p>
+            </tr>
+            <tr>
+                <td><label>Category</label></td>
+                <td>
+                <select id="inlineFormCustomSelectPref" th:field="*{category}">
+                    <option value="" selected>Choose...</option>
+                    <option th:each="category : ${categories}" th:text="${category.name}" th:value="${category.name}"/>
+                </select>
+                    <p th:if="${#fields.hasErrors('category')}" th:errors="*{category}">Category error</p>
+                </td>
+            </tr>
+            <tr>
+                <td><label>Price:</label></td>
+                <td><input type="number" id="inputPrice" th:field="*{price}" placeholder="Price"/></td>
+                <p th:if="${#fields.hasErrors('price')}" th:errors="*{price}">Price error</p>
+            </tr>
+            <tr>
+                <td><label>Upload Image:</label></td>
+                <td><input type="file" id="file" th:field="*{images}" multiple="multiple"/></td>
+            </tr>
+            <tr>
+                <td><button type="submit">Add item</button></td>
+            </tr>
+        </form>
+        </tbody>
+    </table>
+</div>
 </body>
 </html>

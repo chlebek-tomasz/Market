@@ -75,11 +75,14 @@ public class ProductServiceImpl implements ProductService {
         product.setPrice(productDto.getPrice());
         if(!productDto.getImages().isEmpty()) {
             for (MultipartFile file : productDto.getImages()) {
-                Map uploadResult = cloudinary.uploader().upload(file.getBytes(), ObjectUtils.emptyMap());
-                String fileName = (String) uploadResult.get("public_id");
-                String fileUrl = (String) uploadResult.get("url");
-                Image image = new Image(fileName);
-                image.setPath(fileUrl);
+                Image image = new Image();
+                if(!file.isEmpty()) {
+                    Map uploadResult = cloudinary.uploader().upload(file.getBytes(), ObjectUtils.emptyMap());
+                    String fileName = (String) uploadResult.get("public_id");
+                    String fileUrl = (String) uploadResult.get("url");
+                    image.setName(fileName);
+                    image.setPath(fileUrl);
+                }
                 product.getImages().add(image);
                 imageService.save(image);
             }

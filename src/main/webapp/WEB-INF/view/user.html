@@ -18,7 +18,7 @@
                 </div>
                 <div class="row" th:each="product,iterationStatus : ${userProducts}">
                     <div class="col-1" th:text="${iterationStatus.count}"></div>
-                    <div class="col-3"><img style="height: 100px; width: 100px;" th:src="@{'../images/' + ${product.getImages().get(0).getName()}}"/></div>
+                    <div class="col-3"><img style="height: 100px; width: 100px;" th:src="@{${product.getImages().get(0).getPath()}}"/></div>
                     <div class="col-4"><a th:href="@{'/advert/' + ${product.getId()}}" ><p th:text="${product.getName()}"></p></a></div>
                     <div class="col-2" th:text="${product.getPrice()}"></div>
                 </div>

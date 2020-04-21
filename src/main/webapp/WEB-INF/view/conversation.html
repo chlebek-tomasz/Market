@@ -7,16 +7,32 @@
 <body>
 <div th:include="header"></div>
 <div class="container-lg bg-light">
-    <div th:each="message : ${messages}">
-        <div class="justify-content-start" th:unless="${user.getId() == message.getReceiverId()}">
-            <div th:text="${userService.getUserById(message.getSenderId()).getFirstName()}"></div>
-            <div th:text="${message.getText()}"></div>
+    <div th:each="msg : ${messages}">
+        <div class="justify-content-start" th:unless="${user.getId() == msg.getReceiverId()}">
+            <!--
+            <div th:text="${userService.getUserById(msg.getReceiverId()).getFirstName()}"></div>
+            -->
+            <div th:text="${msg.getText()}"></div>
         </div>
-        <div class="justify-content-end" th:if="${user.getId() == message.getReceiverId()}">
+        <div class="justify-content-end" th:if="${user.getId() == msg.getReceiverId()}">
             <div th:text="${user.getFirstName()}"></div>
-            <div th:text="${message.getText()}"></div>
+            <div th:text="${msg.getText()}"></div>
         </div>
     </div>
+
+    <div class="dropdown justify-content-center">
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Answer
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <form name="@{/sendmessage/{id}" th:object="${message}" th:action="@{'/sendmessage/' + ${senderId}}" method="post">
+                <textarea class="form-control" style="width: 400px;" id="exampleFormControlTextarea1" rows="4" th:field="*{text}"></textarea>
+                <p th:if="${#fields.hasErrors('text')}" th:errors="*{text}">Message error</p>
+                <button type="submit">Send</button>
+            </form>
+        </div>
+    </div>
+
 </div>
 
 </body>

@@ -20,11 +20,21 @@ public class MessageServiceImpl implements MessageService {
     @Autowired
     private MessageRepository messageRepository;
 
+    // save message when sending from adverts and we know only product's id
     @Override
-    public void save(Message message, Long id) {
+    public void save(Message message, Long productId) {
         message.setSendDate(new Date());
         message.setSenderId(userService.setUser().getId());
-        message.setReceiverId(productService.getProductById(id).getUser().getId());
+        message.setReceiverId(productService.getProductById(productId).getUser().getId());
+        messageRepository.save(message);
+    }
+
+    // save message when sending from mailbox
+    @Override
+    public void saveFromUser(Message message, Long userId){
+        message.setSendDate(new Date());
+        message.setSenderId(userService.setUser().getId());
+        message.setReceiverId(userService.getUserById(userId).getId());
         messageRepository.save(message);
     }
 
