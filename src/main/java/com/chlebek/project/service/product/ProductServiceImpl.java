@@ -8,13 +8,17 @@ import com.chlebek.project.repository.product.ProductRepository;
 import com.chlebek.project.service.UserService;
 import com.chlebek.project.dto.product.ProductDto;
 import com.chlebek.project.service.util.ImageService;
+import com.cloudinary.Cloudinary;
+import com.cloudinary.utils.ObjectUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class ProductServiceImpl implements ProductService {
@@ -26,6 +30,11 @@ public class ProductServiceImpl implements ProductService {
     private CategoryRepository categoryRepository;
     @Autowired
     private ImageService imageService;
+
+    private Cloudinary cloudinary = new Cloudinary(ObjectUtils.asMap(
+            "cloud_name", "chlebekcloudserver",
+            "api_key", "475119931464237",
+            "api_secret", "-qZbtHRalNkDz5sYV_SHdIMR9pI" ));
 
     @Override
     public Product getProductByName(String name) {
@@ -66,10 +75,12 @@ public class ProductServiceImpl implements ProductService {
         product.setPrice(productDto.getPrice());
         if(!productDto.getImages().isEmpty()) {
             for (MultipartFile file : productDto.getImages()) {
-                Image image = new Image(file.getOriginalFilename());
-                image.setPath("/images/");
+                Map uploadResult = cloudinary.uploader().upload(file.getBytes(), ObjectUtils.emptyMap());
+                String fileName = (String) uploadResult.get("public_id");
+                String fileUrl = (String) uploadResult.get("url");
+                Image image = new Image(fileName);
+                image.setPath(fileUrl);
                 product.getImages().add(image);
-                imageService.saveImage(image, file);
                 imageService.save(image);
             }
         }

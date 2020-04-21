@@ -16,7 +16,7 @@
         </div>
     </nav>
     <div class="text-center">
-        <td th:each="image : ${product.getImages()}"><img class="rounded" style="height: 400px; width: 400px;" th:src="@{'../images/' + ${image.getName()}}"/></td>
+        <td th:each="image : ${product.getImages()}"><img class="rounded" style="height: 400px; width: 400px;" th:src="@{${image.getPath()}}"/></td>
     </div>
 
     <table>
