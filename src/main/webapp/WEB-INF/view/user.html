@@ -43,10 +43,8 @@
                 </tr>
                 </tbody>
             </table>
-            <ul>
-                <li>Kontakt ze sprzedającym</li>
-                <li>Kontakt ze sprzedającym</li>
-                <li>Kontakt ze sprzedającym</li>
+            <ul th:if="${@userService.isLogin()}">
+                <li>Send message</li>
             </ul>
         </div>
     </div>

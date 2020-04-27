@@ -30,4 +30,6 @@ public interface ProductService {
     List<Product> getProductsBySearchingByText(String text);
 
     List<Product> getProductsBySearchingByTextAndCategory(String text, Category category);
+
+    List<Product> getRandomProductsForHomepage();
 }

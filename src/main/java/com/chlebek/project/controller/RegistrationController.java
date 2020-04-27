@@ -33,7 +33,6 @@ public class RegistrationController {
 
     @PostMapping
     public String registerUser(@Valid @ModelAttribute("user") UserRegistrationDto user, BindingResult result, Model model) {
-
         if (result.hasErrors()) {
             result.rejectValue("password", "error.user", "Passwords don't match");
             return "registration";
@@ -52,7 +51,6 @@ public class RegistrationController {
     }
 
     @GetMapping("/verify-email")
-    @ResponseBody
     public String verifyEmail(String code) {
         return verificationTokenService.verifyEmail(code).getBody();
     }

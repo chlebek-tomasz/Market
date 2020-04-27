@@ -15,10 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Service
 public class ProductServiceImpl implements ProductService {
@@ -131,6 +128,22 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public List<Product> getProductsBySearchingByTextAndCategory(String text, Category category) {
         return productRepository.getProductBySearchingByTextAndCategory(text, category);
+    }
+
+    @Override
+    public List<Product> getRandomProductsForHomepage() {
+        List<Product> productList = new ArrayList<>();
+        Random random = new Random();
+        for(int i=0; i<20; i++){
+            int randId = random.nextInt(100);
+            Long id = Long.valueOf(randId);
+            if(productRepository.existsById(id) && !productList.contains(productRepository.getById(id))){
+                productList.add(productRepository.getById(id));
+            } else {
+                i--;
+            }
+        }
+        return productList;
     }
 
     private boolean checkIfProductIdExistDb(Long id){

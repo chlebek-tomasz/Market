@@ -7,6 +7,14 @@
 <body>
     <div th:include="header"></div>
     <div class="container-lg bg-light">
+        <div class="row" th:each="product : ${products}">
+            <a th:href="@{'/advert/' + ${product.id}}">
+                <div><img style="width: 100px; height: 100px;" th:src="@{${product.getImages().get(0).getPath()}}"/></div>
+            </a>
+            <a th:href="@{'/advert/' + ${product.id}}">
+                <div th:text="${product.name}"></div>
+            </a>
+        </div>
     </div>
 
 </body>
