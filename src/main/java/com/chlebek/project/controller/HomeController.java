@@ -23,7 +23,7 @@ public class HomeController {
     @GetMapping
     public String home(Model model) {
         model.addAttribute("categories", categoryService.getAllCategories());
-        model.addAttribute("products", productService.getRandomProductsForHomepage());
+        //model.addAttribute("products", productService.getRandomProductsForHomepage());
         return "index";
     }
 }
