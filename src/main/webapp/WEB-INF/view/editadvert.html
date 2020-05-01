@@ -9,7 +9,9 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
 </head>
 <body>
-<table>
+<div th:include="header"></div>
+<div class="container-lg bg-light">
+    <table class="justify-content-center">
     <tbody>
     <form name="@{/advert/edit/{id}}" th:object="${product}" th:action="@{'/advert/edit/' + ${id}}" method="post">
         <input type="hidden" th:field="*{id}" />
@@ -39,10 +41,15 @@
             <p th:if="${#fields.hasErrors('price')}" th:errors="*{price}">Price error</p>
         </tr>
         <tr>
-            <td><button type="submit">Add item</button></td>
+            <td><label>Upload Image:</label></td>
+            <td><input type="file" id="file" th:field="*{images}" multiple="multiple"/></td>
+        </tr>
+        <tr>
+            <td><button type="submit">Edit item</button></td>
         </tr>
     </form>
     </tbody>
 </table>
+</div>
 </body>
 </html>

@@ -9,10 +9,10 @@
 <div class="container-lg bg-light">
     <nav class="navbar navbar-light bg-light">
         <div class="d-flex justify-content-start">
-            <a th:href="@{'/category/' + ${product.category.id}}">Wszystkie produkty z kategorii <p th:text="${product.category.name}"/></a>
+            <a th:href="@{'/category/' + ${product.category.id}}">All products from <p th:text="${product.category.name}"/></a>
         </div>
         <div class="d-flex justify-content-end">
-            <a th:href="@{'/user/' + ${product.user.id}}">Wszystkie produkty uzytkownika <p th:text="${product.user.firstName}"/></a>
+            <a th:href="@{'/user/' + ${product.user.id}}"><p th:text="${product.user.firstName} + '`s products'" /></a>
         </div>
     </nav>
     <div class="text-center">

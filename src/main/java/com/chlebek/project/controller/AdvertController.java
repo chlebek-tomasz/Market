@@ -51,7 +51,7 @@ public class AdvertController {
     }
 
     @PostMapping("/add")
-    public String addAdvert(@ModelAttribute("product") ProductDto productDto, @RequestParam(value = "images", required = false) MultipartFile[] file, BindingResult result, Model model, HttpServletRequest request) throws Exception {
+    public String addAdvert(@ModelAttribute("product") ProductDto productDto, BindingResult result, Model model, HttpServletRequest request) throws Exception {
         if (result.hasErrors()) {
             result.rejectValue("name", "error.product", "Name too short");
             model.addAttribute("categories", categoryService.getAllCategories());
@@ -104,16 +104,13 @@ public class AdvertController {
             model.addAttribute("product", productDto);
             return "editadvert";
         } else {
-            return "dashboard";
+            return "index";
         }
     }
 
     @PostMapping("/edit/{id}")
-    public String editAdvert(@PathVariable("id") Long id, @ModelAttribute("product") ProductDto productDto, Model model){
-        Product product = productService.setProduct(productDto);
-        product.setId(id);
-        product.setAddedDate(productService.getProductById(product.getId()).getAddedDate());
-        productService.updateProduct(product);
+    public String editAdvert(@PathVariable("id") Long id, @ModelAttribute("product") ProductDto productDto) throws Exception {
+        productService.editProduct(productDto, id);
         return "redirect:/advert/{id}";
     }
 

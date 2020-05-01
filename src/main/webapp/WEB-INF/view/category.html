@@ -6,14 +6,16 @@
 </head>
 <body>
 <div th:include="header"></div>
-<table>
-    <tbody>
-    <tr th:each="product,iterationStatus : ${products}">
-        <td th:text="${iterationStatus.count}"></td>
-        <td><a th:href="@{'/advert/' + ${product.id}}" th:text="${product.getName()}"></a></td>
-        <td th:text="${product.price}"></td>
-    </tr>
-    </tbody>
-</table>
+<div class="container-lg bg-light">
+        <div class="row" th:each="product,iterationStatus : ${products}">
+            <div class="col-2">
+                <a th:href="@{'/advert/' + ${product.id}}">
+                    <img style="height: 100px; width: 100px;" th:src="@{${product.getImages().get(0).getPath()}}"/>
+                </a>
+            </div>
+            <div class="col-5"><a th:href="@{'/advert/' + ${product.id}}" th:text="${product.getName()}"></a></div>
+            <div class="col-2" th:text="${product.price}"></div>
+        </div>
+</div>
 </body>
 </html>

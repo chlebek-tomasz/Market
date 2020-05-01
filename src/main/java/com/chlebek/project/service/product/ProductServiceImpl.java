@@ -90,6 +90,30 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    public void editProduct(ProductDto productDto, Long id) throws Exception {
+        Product product = getProductById(id);
+        product.setName(productDto.getName());
+        product.setDescription(productDto.getDescription());
+        product.setCategory(categoryRepository.findByName(productDto.getCategory()));
+        product.setPrice(productDto.getPrice());
+        if(!productDto.getImages().isEmpty()) {
+            for (MultipartFile file : productDto.getImages()) {
+                Image image = new Image();
+                if(!file.isEmpty()) {
+                    Map uploadResult = cloudinary.uploader().upload(file.getBytes(), ObjectUtils.emptyMap());
+                    String fileName = (String) uploadResult.get("public_id");
+                    String fileUrl = (String) uploadResult.get("url");
+                    image.setName(fileName);
+                    image.setPath(fileUrl);
+                }
+                product.getImages().add(image);
+                imageService.save(image);
+            }
+        }
+        updateProduct(product);
+    }
+
+    @Override
     public void updateProduct(Product product) {
         productRepository.save(product);
     }

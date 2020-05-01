@@ -6,8 +6,8 @@
 </head>
 <body>
     <div th:include="header"></div>
-    <div>
-    <form name="f" th:action="@{/login}" method="post">
+    <div class="container-lg bg-light justify-content-center">
+    <form class="col-4" name="f" th:action="@{/login}" method="post">
         <div class="form-group">
             <input type="text" id="email" name="email"class="form-control" placeholder="Email" required autofocus>
         </div>

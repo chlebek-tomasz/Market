@@ -7,15 +7,26 @@
 <body>
 <div th:include="header"></div>
 
-<div class="mx-auto" style="width: 70%; background: aquamarine">
-    <div th:each="product,iterationStatus : ${products}">
-        <div>
+<div class="container-lg bg-light">
+    <div class="row" th:each="product,iterationStatus : ${products}">
+        <div class="col-2">
             <a th:href="@{'/advert/' + ${product.id}}">
-                <img src="..." alt="..." class="rounded">
+                <img style="height: 100px; width: 100px;" th:src="@{${product.getImages().get(0).getPath()}}"/>
             </a>
         </div>
-        <div>
+        <div class="col-9">
             <a th:href="@{'/advert/' + ${product.id}}" th:text="${product.getName()}"/>
+        </div>
+        <div class="col-1 justify-content-center">
+            <div class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Opcje
+                </button>
+                 <div class= "dropdown-menu" aria-labelledby="dropdownMenu2">
+                    <a th:href="@{'/advert/edit/' + ${product.id}}">Edytuj</a>
+                    <a th:href="@{'/advert/delete/' + ${product.id}}">Usuń</a>
+                </div>
+            </div>
         </div>
     </div>
 </div>
