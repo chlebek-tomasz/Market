@@ -3,7 +3,7 @@
 aplikacji webowych we framework'u <b>SPRING MVC</b></li></p>
 <p><li>Aplikacja polega na dodawaniu, usuwaniu, edycji ogłoszeń produktów. Użytkownik bez założenia konta oraz bez zalogowania może jedynie
 przeglądać aukcje znajdujące się na portalu. Natomiast po zalogowaniu otrzymuje pełen zakres możliwości, to znaczy tworzenie, edycja,
-usuwanie własnych ogłoszeń. Ma również możliwość wysyłania wiadomości do innych zarejestrowanych użytkowników portalu.</li></p></br>
+usuwanie własnych ogłoszeń. Ma również możliwość wysyłania wiadomości do innych zarejestrowanych użytkowników portalu.</li></p>
 
 <h3><b>2. Użyte technologie</b></h3>
  <h5><li>BACKEND</li></h5>
